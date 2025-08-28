@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Define a new type for the Room structure using typedef
+
 typedef struct {
     int room_no;
     char *customer_name;
@@ -11,11 +11,10 @@ typedef struct {
     float room_rent;
 } Room; 
 
-Room* rooms; // Pointer to an array of Room structures
+Room* rooms; 
 int num_rooms = 0;
-int max_rooms = 0; // Maximum number of rooms allowed
+int max_rooms = 0; 
 
-// Function prototypes
 void add_customer();
 void display_customer_info();
 void search_customer();
@@ -26,7 +25,7 @@ void increase_room_capacity();
 int main() {
     int choice;
 
-    // Initial room capacity (can be adjusted)
+   
     max_rooms = 10;
     rooms = (Room*)malloc(max_rooms * sizeof(Room));
     if (rooms == NULL) {
@@ -69,7 +68,6 @@ int main() {
         }
     } while (choice != 6);
 
-    // Free dynamically allocated memory
     for (int i = 0; i < num_rooms; i++) {
         free(rooms[i].customer_name);
         free(rooms[i].check_in_date);
@@ -80,13 +78,12 @@ int main() {
     return 0;
 }
 
-// Function to add a new customer
 void add_customer() {
     if (num_rooms >= max_rooms) {
-        increase_room_capacity(); // Increase capacity if needed
+        increase_room_capacity(); 
     }
 
-    rooms[num_rooms].room_no = num_rooms + 1; // Assuming room numbers start from 1
+    rooms[num_rooms].room_no = num_rooms + 1; 
 
     // Allocate memory for dynamically allocated members
     rooms[num_rooms].customer_name = (char*)malloc(50 * sizeof(char));
@@ -95,7 +92,7 @@ void add_customer() {
 
     printf("\nEnter customer details:\n");
     printf("Customer Name: ");
-    scanf(" %[^\n]", rooms[num_rooms].customer_name); // Read full name
+    scanf(" %[^\n]", rooms[num_rooms].customer_name); 
     printf("Check-in Date (YYYY-MM-DD): ");
     scanf("%s", rooms[num_rooms].check_in_date);
     printf("Check-out Date (YYYY-MM-DD): ");
@@ -107,7 +104,6 @@ void add_customer() {
     printf("Customer added successfully!\n");
 }
 
-// Function to increase room capacity
 void increase_room_capacity() {
     max_rooms *= 2; // Double the capacity
     Room* temp = (Room*)realloc(rooms, max_rooms * sizeof(Room));
@@ -118,7 +114,6 @@ void increase_room_capacity() {
     rooms = temp;
 }
 
-// Function to display customer information
 void display_customer_info() {
     int room_no;
 
@@ -140,13 +135,10 @@ void display_customer_info() {
     printf("Room not found.\n");
 }
 
-// Function to search for a customer by room number
 void search_customer() {
-    // This function is already implemented in display_customer_info()
     display_customer_info();
 }
 
-// Function to check out a customer
 void check_out_customer() {
     int room_no;
 
@@ -156,8 +148,6 @@ void check_out_customer() {
     for (int i = 0; i < num_rooms; i++) {
         if (rooms[i].room_no == room_no) {
             printf("Customer checked out successfully.\n");
-            // Optionally, you can remove the customer data from the array
-            // by shifting the remaining elements to the left
             for (int j = i; j < num_rooms - 1; j++) {
                 rooms[j] = rooms[j + 1];
             }
@@ -169,7 +159,6 @@ void check_out_customer() {
     printf("Room not found.\n");
 }
 
-// Function to display information for all rooms
 void display_all_rooms() {
     if (num_rooms == 0) {
         printf("No rooms occupied.\n");
@@ -186,3 +175,4 @@ void display_all_rooms() {
         printf("---------------------\n");
     }
 }
+
